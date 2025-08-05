@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Celebration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to top right, #ffecd2, #fcb69f);
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    #loader {
+      display: block;
+      font-size: 24px;
+      margin-top: 50px;
+    }
+
+    #celebration, #forYouBtn {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Birthday Countdown</h1>
+  <div id="loader">Loading...</div>
+
+  <button id="forYouBtn">Tap to Celebrate 🎉</button>
+
+  <div id="celebration">
+    <h2>🎂 Happy Birthday! 🎂</h2>
+    <audio id="audio" src="your_song.mp3"></audio>
+    <div id="confettiContainer"></div>
+  </div>
+
+  <script>
+    // Simulate loading screen
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('forYouBtn').style.display = 'inline-block';
+    }, 1500);
+
+    const audio = document.getElementById('audio');
+    const forYouBtn = document.getElementById('forYouBtn');
+    const celebration = document.getElementById('celebration');
+    const confettiContainer = document.getElementById('confettiContainer');
+
+    forYouBtn.addEventListener('click', () => {
+      forYouBtn.style.display = 'none';
+      celebration.style.display = 'block';
+      audio.volume = 0.8;
+      audio.play().catch(e => console.log("Autoplay prevented:", e));
+
+      // Generate confetti
+      for (let i = 0; i < 50; i++) {
+        let confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        confettiContainer.appendChild(confetti);
+      }
+    });
+  </script>
+
+</body>
+</html>
